@@ -1,0 +1,74 @@
+service: awsregion
+
+provider:
+  name: aws
+  runtime: python2.7
+  stage: dev
+  region: us-east-1
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"
+
+functions:
+  create:
+    handler: create.create
+    events:
+      - http:
+          path: regions
+          method: post
+          cors: true
+  readAll:
+    handler: readAll.readAll
+    events:
+      - http:
+          path: regions
+          method: get
+          cors: true
+  readOne:
+    handler: readOne.readOne
+    events:
+      - http:
+          path: regions/{id}
+          method: get
+          cors: true
+  update:
+    handler: update.update
+    events:
+      - http:
+          path: regions/{id}
+          method: put
+          cors: true
+  delete:
+    handler: delete.delete
+    events:
+      - http:
+          path: regions/{id}
+          method: delete
+          cors: true
+resources:
+  Resources:
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: 'regions'
