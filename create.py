@@ -1,14 +1,22 @@
 import json
+import boto3
 
 def create(event, context):
-    body = u"create"
+    try:
+        if len(event['body']) == 0:
+            return 'There is no data'
 
-    response = {
-        "statusCode": 200,
-        "body": body
-    }
+        body = event['body']
 
-    return response
+        response = {
+            "statusCode": 200,
+            "body": body
+        }
+
+        return response
+
+    except Exception as e:
+        return e
 
 if __name__ == '__main__':
    result = readAll(None, None)
