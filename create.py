@@ -15,23 +15,10 @@ def create(event, context):
 #	pp.pprint(event)
         body = event['body']
 
-#####
-	pp.pprint(body.encode('utf-8'))
-	print(isinstance(body,unicode))
-	print(isinstance(body,str))
-
-#	json_data = json.dumps(body, ensure_ascii=False)
-#	json_data = json.loads(body.encode('utf-8').replace("'",""))
 	json_data = json.loads(body.encode('utf-8'))
-
-	pp.pprint(json_data)
 	region = json_data['region']
 	jpname = json_data['jpname']
 
-	pp.pprint(region)
-	pp.pprint(jpname)
-
-#####
 	table.put_item(
 	    Item={
 	        "id": region ,
