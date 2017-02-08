@@ -15,7 +15,7 @@ def readAll(event, context):
         
         data = ""
         for x in body['Items']:
-            data += x['id'] + "\t" + x['jpname'] + "\n"
+            data += x['region'] + "\t" + x['jpname'] + "\n"
 
         response = {
             "statusCode": 200,

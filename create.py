@@ -21,7 +21,7 @@ def create(event, context):
 
 	table.put_item(
 	    Item={
-	        "id": region ,
+	        "region": region ,
 	        "jpname": jpname
 	   }
 	)

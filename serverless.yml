@@ -61,14 +61,14 @@ resources:
 #      DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: region
             AttributeType: S
           - AttributeName: jpname
             AttributeType: S
         KeySchema:
-          - AttributeName: id
-            KeyType: HASH
           - AttributeName: jpname
+            KeyType: HASH
+          - AttributeName: region
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
