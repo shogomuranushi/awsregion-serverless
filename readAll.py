@@ -9,13 +9,17 @@ table    = dynamodb.Table('regions')
 
 def readAll(event, context):
     try:
-	data = table.scan()
-	print(data)
-	body = data
+        body = table.scan()
+        print(body)
+        print(body['Items'])
+        
+        data = ""
+        for x in body['Items']:
+            data += x['id'] + "\t" + x['jpname'] + "\n"
 
         response = {
             "statusCode": 200,
-            "body": body
+            "body": data
         }
 
         return response
